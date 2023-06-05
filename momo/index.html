@@ -1,0 +1,79 @@
+<html>
+<head>
+  <title>Welcome</title>
+
+  <link rel="stylesheet" href="css/index.css">
+  
+
+  <!--Firebase dependencies-->
+  <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+
+
+ 
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel = "icon" href ="images/icon.png">
+
+
+
+  
+
+
+</head>
+
+
+<body onload>
+
+  <form method=GET action='edit.html'>
+  <table align=center>
+    <tr>
+      <td> <font size=2 face=arial>Choose your level</font></td></td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+
+    <tr>
+        <td colspan=2 align=center><input type="button" value="Beginner" onclick="openLevel('beginner')"></td>
+    
+    </tr>
+    
+    <tr>
+        <td colspan=2 align=center><input type="button" value="Intermediate" onclick="openLevel('intermediate')"></td>
+    </tr>
+
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+      <td colspan=2 align=center><input type="button" value="Expert" onclick="openLevel('expert')"></td>
+    </tr>
+  </table>
+  
+    
+    
+  </form>
+ 
+  
+
+  <script>
+
+    function openLevel(level)
+    {
+        sessionStorage.setItem("level", level);
+        location.replace("tutorials.html");
+    }
+
+  </script>
+  
+
+
+
+
+
+</body>
+
+
+</html>

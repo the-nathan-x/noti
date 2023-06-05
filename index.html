@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>Noti.Work</title>
+    <script>
+      function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+      }
+    }
+      return "";
+      }
+
+
+
+      var cookie_info = getCookie("noti_info").split("*.*");
+      sessionStorage.setItem("user_name", cookie_info[2]);
+      sessionStorage.setItem("phonenumber", cookie_info[1]);
+    </script>
+
+  </head>
+  <body>
+    <main>
+      <div class="nav-container">
+        <nav>
+          <img src="./img/noti.png" alt="" class="img-responsive" />
+          <ul>
+            <li class="noti-header">noti.work</li>
+            <li><a class="order" href="documents.html">Account</a></li>
+          </ul>
+        </nav>
+      </div>
+      <section class="home">
+        <div class="showcase">
+          <div class="info">
+            <p  class="typewriter-red">
+              Hi!
+            </p>
+            <p  class="typewriter-orange">
+              Welcome to Noti!
+            </p>
+            <p  class="typewriter-yellow">
+              Get access to 
+            </p>
+            <p  class="typewriter-green">
+              tools that enable you
+            </p>
+            <p  class="typewriter-blue">
+              create, edit,
+            </p>
+            <p  class="typewriter-indigo">
+               collaborate
+            </p>
+            <p  class="typewriter-violet">
+              and share documents
+            </p>
+          </div>
+        </div>
+      </section>
+      <div class="features-container">
+        <div class="features">
+          <div class="cards">
+            <div class="card">
+              <img src="./img/write_font.png" alt=""/>
+              <h4>ideate...</h4>
+              <p>Instantly write and edit documents with Noti</p>
+            </div>
+            <div class="card">
+              <img src="./img/collaborate.png" alt=""/>
+              <h4>collaborate...</h4>
+              <p>Collaborate in editing documents with friends at any time</p>
+            </div>
+            <div class="card">
+              <img src="./img/share.png" alt=""/>
+              <h4>share...</h4>
+              <p>
+                Instantly share documents, with colleagues in a few taps
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <h1><a href="#">Our Team</a></h1>
+        <ul>
+          <li>
+            <a href="#"><img src="./img/yt-logo.png" alt="" /></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/notiglobalapp?s=11"><img src="./img/twitter-logo.png" alt="" /></a>
+          </li>
+          <li>
+            <a href="https://instagram.com/noti.global?utm_medium=copy_link"><img src="./img/instagram-logo.png" alt="" /></a>
+          </li>
+        </ul>
+      </footer>
+    </main>
+  </body>
+</html>

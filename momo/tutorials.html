@@ -1,0 +1,125 @@
+<html>
+<head>
+  <title>Welcome- Noti</title>
+
+  <script src="js/index.js"></script>
+  <link rel="stylesheet" href="css/index.css">
+  
+
+  <!--Firebase dependencies-->
+  <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+
+
+  <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyCOz4XZCYVWX-q9Dthshv3oc7pwv_3_Ad0",
+    authDomain: "project-momo-ef11e.firebaseapp.com",
+    databaseURL: "https://project-momo-ef11e-default-rtdb.firebaseio.com",
+    projectId: "project-momo-ef11e",
+    storageBucket: "project-momo-ef11e.appspot.com",
+    messagingSenderId: "1019349475718",
+    appId: "1:1019349475718:web:02311da546bbc64baccc07",
+    measurementId: "G-R67G920TZF"
+    };
+ 
+    firebase.initializeApp(config);
+  </script>
+    
+
+
+  <script>
+ 
+    document.title = 'Welcome - ' +sessionStorage.getItem("level");
+
+  </script>
+
+
+</head>
+
+
+<body onload>
+
+ 
+  <table id="docs_list" align=center>
+<thead>
+  <tr>
+      <th> <font face="arial">Chapters</font></th>
+  </tr>
+</thead>
+</table>
+  
+
+
+
+<script>
+	
+  var table_docs = document.getElementById('docs_list');
+  var databaserefer = firebase.database().ref('tutorials/');
+  var rowindex = 1;
+  
+  
+  databaserefer.on('value',function(snapshot)
+  {
+  
+    //clearing table before re-writing
+    var count = rowindex - 1;
+    while(count > 0)
+    {
+      document.getElementById("docs_list").deleteRow(count);
+      count = count - 1;
+    //	console.log(rowindex);
+    }
+  
+  
+  
+    rowindex = 1;
+    snapshot.forEach(function(childSnapshot)
+    {
+      var childKey = childSnapshot.key;
+  
+      var childData = childSnapshot.val();
+      
+      var row = table_docs.insertRow(rowindex);
+      var cellTitle = row.insertCell(0);
+     if(childData.level == sessionStorage.getItem("level"))
+     {
+
+      var button = document.createElement("BUTTON");
+      var title_display = document.createTextNode(childData.title);
+      button.className = "buttonId";
+      
+
+      button.appendChild(title_display);
+      button.onclick = function(){
+        //alert(childData.id)
+        sessionStorage.setItem("url", childData.url);
+        var link_open =  "preview.html";
+        location.replace(link_open);
+        };
+      
+      cellTitle.appendChild(button);
+    //  cellTitle.appendChild(document.createTextNode(childData.title.replace("+"," ")));
+    /*  cellId.appendChild(document.createTextNode(childData.id));
+      cellWordCount.appendChild(document.createTextNode("")); */
+      rowindex = rowindex + 1;
+      
+
+     }
+    
+  
+  
+      });
+  });
+
+  
+
+  
+  </script>
+
+
+
+</body>
+
+
+</html>

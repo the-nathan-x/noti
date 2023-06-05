@@ -1,0 +1,53 @@
+<html>
+<head>
+  <title>Welcome</title>
+
+  <link rel="stylesheet" href="css/index.css">
+  
+
+  <!--Firebase dependencies-->
+  <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+
+
+ 
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel = "icon" href ="images/icon.png">
+
+
+
+  
+
+
+</head>
+
+
+<body onload="document.getElementById('preview').src = sessionStorage.getItem('url')">
+
+  <form method=GET action='edit.html'>
+  <table align=center>
+    <tr>
+      <td height="100%" width="100%"> <iframe id="preview" src="" >
+      </iframe></td>
+    </td>
+    </tr>
+    
+
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+      <td colspan=2 align=center><input type="button" value="Go Home" onclick="location.replace('tutorials.html')"></td>
+    </tr>
+  </table>
+  
+    
+    
+  </form>
+ 
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,90 @@
+<html>
+<head>
+  <title>User behaviours</title>
+  
+  <!--Firebase dependencies-->
+  <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+
+
+  <script>
+    // Initialize Firebase
+    var config = {
+
+  apiKey: "AIzaSyBx8xGhPib5GEwBdVCuHYYt71TmfMPVFAA",
+  authDomain: "noti-b1c85.firebaseapp.com",
+  databaseURL: "https://noti-b1c85.firebaseio.com",
+  projectId: "noti-b1c85",
+  storageBucket: "noti-b1c85.appspot.com",
+  messagingSenderId: "648522773009",
+  appId: "1:648522773009:web:cf9aacbb23f31eb515b7b0",
+  measurementId: "G-6EPVSL2TZL"
+
+
+    };
+ 
+    firebase.initializeApp(config);
+  </script>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel = "icon" href ="images/icon.png">
+
+
+<meta name="description" content="Noti is an online co-editing space">
+<meta name="keywords" content="www.noti.global, noti, noti.global">
+
+
+
+</head>
+  
+  
+<body>
+<span id="users_count"><br>
+<span id="notis_count"><br>
+
+<script>
+
+  var user_count = 0;
+  var docs_count = 0;
+
+
+  var databaserefer_user = firebase.database().ref('users');
+  var databaserefer_noti = firebase.database().ref('notis');
+  var rowindex = 1;
+  
+  
+  databaserefer_user.on('value',function(snapshot)
+  {
+  console.log("user count commenced");
+    snapshot.forEach(function(childSnapshot)
+    {
+      
+      user_count = user_count + 1;
+      });    
+  });
+
+
+  databaserefer_noti.on('value',function(snapshot)
+  {
+    console.log("noti count commenced");
+    snapshot.forEach(function(childSnapshot)
+    {
+      
+      docs_count = docs_count + 1;
+      });
+      printstats();
+    });
+  
+
+    function printstats(){
+        document.getElementById("users_count").innerHTML = "Total number of users:  "+ user_count + "<br>" + "Total number of docs:  " + docs_count;
+//        document.getElementById("notis_count").innerHTML = "Total number of docs:  "+ docs_count;
+    }
+
+
+  </script>
+
+
+</body>
+
+
+</html>

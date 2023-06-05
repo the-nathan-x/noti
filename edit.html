@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Noti</title>
+    <script src="https://www.gstatic.com/firebasejs//4.9.0/firebase.js"></script>
+    <script src="https://cdn.tiny.cloud/1/q9ftlq2cuy48ldvd0bzpuzaxhnqgt93isap94dm1wj33ln4v/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>   
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBx8xGhPib5GEwBdVCuHYYt71TmfMPVFAA",
+        authDomain: "noti-b1c85.firebaseapp.com",
+        databaseURL: "https://noti-b1c85.firebaseio.com",
+        projectId: "noti-b1c85",
+        storageBucket: "noti-b1c85.appspot.com",
+        messagingSenderId: "648522773009",
+        appId: "2efed084-aca8-4cc8-bb6a-96449e4e1996",
+        measurementId: "G-6EPVSL2TZL"
+      };
+   
+      firebase.initializeApp(config);
+    
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;600&display=swap"
+    rel="stylesheet"
+  
+    />
+  <link rel="stylesheet" href="./styles/style.css" />
+
+
+    <link rel="stylesheet" href="css/edit.css">
+    <meta name="description" content="Noti is an online co-editing space">
+    <meta name="keywords" content="www.noti.work, noti, noti.work">
+
+
+    <script>
+      function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+      }
+    }
+      return "";
+      }
+
+
+
+      var cookie_info = getCookie("noti_info").split("*.*");
+      sessionStorage.setItem("user_name", cookie_info[2]);
+      sessionStorage.setItem("phonenumber", cookie_info[1]);
+/*
+      if((sessionStorage.getItem('user_name')) == null )
+      {
+       var memorize = "edit.html" + window.location.search;
+       sessionStorage.setItem('history', memorize);
+       location.replace("login.html");
+      };
+*/
+      var logger = false;
+      if((sessionStorage.getItem('user_name')) != "undefined" || sessionStorage.setItem("user_name") != undefined)
+      {  
+       // window.alert("Okay");
+        logger = true;
+        document.getElementById("cookie_implant").innerHTML = "";
+      }
+      else{tinymce.activeEditor.mode.set("readonly");}
+
+      function gotologin()
+      {
+       var memorize = "edit.html" + window.location.search;
+       sessionStorage.setItem('history', memorize);
+       location.replace("login.html");
+      }
+      
+      function dismissbanner()
+      {
+        document.getElementById("cookie_implant").innerHTML = "";
+      }
+      
+  
+    </script>
+
+
+
+    <script>
+     // window.alert("okay");
+      var data_fetched;
+      var title_fetched;
+      //getting the doc Id parameter from the url
+      var wave_docId = window.location.search;
+      var wave_id = wave_docId.replace('?id=',"");
+      var title = wave_id.slice(21);
+      wave_id = wave_id.slice(0, 14);
+
+      
+      //updating text content from database
+  
+      var databaseeRef = firebase.database().ref("notis/" +wave_id + "/text");
+      databaseeRef.on('value', (snapshot) =>{
+      data_fetched = snapshot.val();
+     // window.alert(data_fetched);
+
+     function usernameCheck(){
+    //this code, is just to make sure we have the username
+    if(sessionStorage.getItem("user_name") == null){
+      
+      const path_user_name = "users/"+phonenumber+"/user_name";
+    var databaseeRef = firebase.database().ref(path_password);
+    databaseeRef.on('value', (snapshot) =>{
+      const data = snapshot.val();
+      sessionStorage.setItem("user_name", data);
+      location.reload();
+  
+    });
+
+    }
+  }
+  setInterval(function(){ usernameCheck(); }, 10);
+//the whole code above was unsuccessful!!!!
+  
+      tinymce.init({
+  selector: 'textarea',
+  plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen link template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount textpattern noneditable help charmap quickbars emoticons',
+  imagetools_cors_hosts: ['picsum.photos'],
+  menubar: 'file edit view insert format tools table help',
+  toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile media template link anchor codesample | ltr rtl ',
+  toolbar_sticky: true,
+  autosave_ask_before_unload: true,
+  autosave_interval: "30s",
+  autosave_prefix: "{path}{query}-{id}-",
+  autosave_restore_when_empty: false,
+  autosave_retention: "2m",
+  image_advtab: true,
+  link_list: [
+    { title: 'My page 1', value: 'http://www.tinymce.com' },
+    { title: 'My page 2', value: 'http://www.moxiecode.com' }
+  ],
+  image_list: [
+    { title: 'My page 1', value: 'http://www.tinymce.com' },
+    { title: 'My page 2', value: 'http://www.moxiecode.com' }
+  ],
+  image_class_list: [
+    { title: 'None', value: '' },
+    { title: 'Some class', value: 'class-name' }
+  ],
+  importcss_append: true,
+  file_picker_callback: function (callback, value, meta) {
+    /* Provide file and text for the link dialog */
+    if (meta.filetype === 'file') {
+      callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+    }
+
+    /* Provide image and alt text for the image dialog */
+    if (meta.filetype === 'image') {
+      callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+    }
+
+    /* Provide alternative source and posted for the media dialog */
+    if (meta.filetype === 'media') {
+      callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+    }
+  },
+  templates: [
+        { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+    { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+    { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+  ],
+  template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+  template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+  height: 600,
+  image_caption: true,
+  quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quicktable',
+  noneditable_noneditable_class: "mceNonEditable",
+  toolbar_mode: 'sliding',
+  contextmenu: "link table",
+
+
+
+  external_plugins: {"wave": "https://cdn2.codox.io/waveTinymce/plugin.min.js"},
+
+
+      wave: {
+        "docId": wave_id, // unique document id,
+        "username": sessionStorage.getItem("user_name"), // unique username or email address
+     //   "apiKey": "6236cf78-4b79-4e15-9d47-bf2294c4360d" // this is your actual API Key
+        "apiKey": "d833c5a0-f00f-41d4-b483-4f72d0b0e726" // this is your actual API Key
+        
+      },
+
+
+ });
+
+
+      //reading the document's title and saving it to database
+ 
+//window.alert(title);
+if(title == ""){
+
+  const path_title = "notis/" +id + "/title";
+//window.alert(path);
+
+const dbRefObject_title = firebase.database().ref(path_title);
+  dbRefObject_title.on('value', (snapshot) =>{
+    title = snapshot.val();
+   // window.alert(title);
+   document.getElementById("title").value = title;
+  });
+
+
+}
+
+else{
+  var updates = {};
+  updates['/notis/' + id + '/title'] = title;
+  firebase.database().ref().update(updates);   
+}
+document.title = title.replaceAll("+", " ");
+title = title.replaceAll("+", " ");
+document.getElementById("title").value = title;
+
+saveOwnership();
+
+
+    
+      });
+
+      function Export2Doc(element, filename = ''){
+    var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+    var postHtml = "</body></html>";
+    var html = preHtml+ data_fetched +postHtml;
+
+    var blob = new Blob(['\ufeff', html],{
+        type: 'application/msword'
+    });
+
+    var url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html)
+    title = title.replaceAll("+", " ");
+    var title_doc = title + ".doc";
+
+   // filename = filename?filename+'.doc': 'document.doc';
+   filename = filename?filename+'.doc': title_doc;
+
+
+    var downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+
+    if(navigator.msSaveOrOpenBlob){
+        navigator.msSaveOrOpenBlob(blob, filename);
+    }else{
+        downloadLink.href = url;
+
+        downloadLink.download = filename;
+
+        downloadLink.click();
+    }
+
+    document.body.removeChild(downloadLink);
+
+
+}
+
+
+
+
+
+
+
+function shareWhatsapp() {
+  
+  var open_link = "edit.html" + window.location.search;
+  open_link = "https://noti.work/" + open_link;
+  var greeting = "Lets edit " +title + " in Noti. Open this link! "+open_link; 
+  var final = "whatsapp://send?text=" + greeting;
+
+  //location.href="whatsapp://send?text=GFG Example for whatsapp sharing";
+  location.href = final;
+}
+function saveTitle(){
+  var updates = {};
+  updates['/notis/' + docId + '/title'] = document.getElementById("title").value;
+  firebase.database().ref().update(updates);
+  document.title = document.getElementById("title").value;
+}
+
+    </script>
+  
+    <link rel = "icon" href ="images/icon.png">
+    
+
+</head>
+<body onload="wakanyagie()">
+
+
+
+  
+  <body onload="wakanyagie()">
+    <table>
+      <tr>
+        <td>
+          <p class="doc-title">Document Title:</p>
+        </td>
+        <td><input type="text" id="title" oninput="saveTitle()"></td>
+      </tr>
+    </table>
+    
+
+    <textarea id = "sehemu"></textarea>
+     <span id = "onyesha"></span>&nbsp; &nbsp;
+     <span id = "online"></span><br>
+    
+
+     <center><input type="button" value="Home" onclick="location.replace('documents.html')">
+      <input type="button" value="Share on Whatsapp" onclick="shareWhatsapp()"></center>
+    <br>
+    <center>
+    <input type="button" value="Download As Word Document" onclick="Export2Doc('exportContent', title)">
+    
+
+
+
+
+
+
+
+
+ <script>
+
+  function memory(){
+    //this is where tinyMCE was, keeping it for memory
+  }
+
+  </script>
+
+
+ <script src = "js/edit.js"> </script>
+
+ <script>
+  function wakanyagie(){
+   // window.alert(title);
+    tinyMCE.get('sehemu').setContent(data_fetched);
+    
+    console.log("Recalled from database successfully!");
+
+  }
+
+  
+</script>
+
+<div class="cookie-consent-banner" id="cookie_implant">
+  <div class="cookie-consent-banner__inner">
+    <div class="cookie-consent-banner__copy">
+      <div class="cookie-consent-banner__description">You are on reader view. You have to login to be able to edit this document</div>
+    </div>
+
+    <div class="cookie-consent-banner__actions">
+      <a href="#" class="cookie-consent-banner__cta" onclick="gotologin()">
+        Login
+      </a>
+      
+      <a href="#" class="cookie-consent-banner__cta cookie-consent-banner__cta--secondary" onclick="dismissbanner()">
+        Decline
+      </a>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

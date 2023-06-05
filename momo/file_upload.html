@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700" rel="stylesheet">
+
+	<script src="https://use.fontawesome.com/939e9dd52c.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+
+    <title>Upload tutorials</title>
+
+    <script src="js/upload.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+
+       
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+      console.log("version 0.0.2");
+    </script>
+    
+</head>
+<body>
+
+	<div class="mainDiv" align="right">
+	
+		<progress id="uploader" value="0" max="100">0%</progress>
+		<input type="file" id="fileButton" value="upload"/>
+	</div>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCOz4XZCYVWX-q9Dthshv3oc7pwv_3_Ad0",
+    authDomain: "project-momo-ef11e.firebaseapp.com",
+    databaseURL: "https://project-momo-ef11e-default-rtdb.firebaseio.com",
+    projectId: "project-momo-ef11e",
+    storageBucket: "project-momo-ef11e.appspot.com",
+    messagingSenderId: "1019349475718",
+    appId: "1:1019349475718:web:02311da546bbc64baccc07",
+    measurementId: "G-R67G920TZF"
+  };
+  firebase.initializeApp(config);
+  //-------------------------------------
+  var file_url;
+  var uploader = document.getElementById('uploader');
+  var fileButton = document.getElementById('fileButton');
+  fileButton.addEventListener('change', function(e){
+  var file = e.target.files[0];
+  var storageRef = firebase.storage().ref('img/'+file.name);
+  var task = storageRef.put(file);
+  task.on('state_changed', function progress(snapshot) {
+    var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+    uploader.value = percentage;
+
+  }, function error(err) {
+
+
+  },function complete() {
+    
+    file_url = task.snapshot.downloadURL;
+  });
+});  
+  
+  
+</script>
+
+
+</script>
+
+
+<table align=center>
+  
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+
+    <tr>
+      <td><font size=2 face=arial>What level does this tutorial belong to</font></td>
+      <td align="center">
+        <select id="study_level">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="expert">Expert</option>
+          </select>
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><font size=2 face=arial>Chapter title</font></td>
+      <td align="center"><input type="text" name="title" id="title" required></td>
+    </tr>
+
+    <tr></tr>
+    <tr></tr>
+    <tr>
+      <td colspan=2 align=center><input type="submit" value="Upload" onclick="go()" id=""></td>
+    </tr>
+  </table>
+  
+ 
+
+</body>
+</html>

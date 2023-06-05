@@ -1,0 +1,112 @@
+<html>
+<head>
+  <title>Upload tutorials</title>
+
+  <script src="js/upload.js"></script>
+  <link rel="stylesheet" href="css/index.css">
+  
+
+  <!--Firebase dependencies-->
+  <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+
+
+  <script>
+    // Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyCOz4XZCYVWX-q9Dthshv3oc7pwv_3_Ad0",
+    authDomain: "project-momo-ef11e.firebaseapp.com",
+    databaseURL: "https://project-momo-ef11e-default-rtdb.firebaseio.com",
+    projectId: "project-momo-ef11e",
+    storageBucket: "project-momo-ef11e.appspot.com",
+    messagingSenderId: "1019349475718",
+    appId: "1:1019349475718:web:02311da546bbc64baccc07",
+    measurementId: "G-R67G920TZF"
+    };
+ 
+    firebase.initializeApp(config);
+  </script>
+
+  <script>
+  var download_url; 
+  var uploader = document.getElementById('uploader');
+  var fileButton = document.getElementById('fileButton');
+  fileButton.addEventListener('change', function(e){
+  var file = e.target.files[0];
+  var storageRef = firebase.storage().ref('img/'+file.name);
+  var task = storageRef.put(file);
+  task.on('state_changed', function progress(snapshot) {
+    var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
+    uploader.value = percentage;
+
+  }, function error(err) {
+
+
+  },function complete() {
+    download_url = task.snapshot.downloadURL;
+  });
+});  
+  
+  </script>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+
+
+<body>
+  <table align=center>
+    <tr>
+      <td rowspan="2" colspan="2" align="center"><img src="images/icon.png" width=20% height=20%></td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+
+    <tr>
+      <td><font size=2 face=arial>What level does this tutorial belong to</font></td>
+      <td align="center">
+        <select id="study_level">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="expert">Expert</option>
+          </select>
+      </td>
+      
+    </tr>
+    
+    <tr>
+      <td><font size=2 face=arial>Chapter title</font></td>
+      <td align="center"><input type="text" name="title" id="title" required></td>
+    </tr>
+
+    <tr>
+        <td><font size=2 face=arial>Upload PDF</font></td>
+        <td align="center"><input type="file" name="title" id="fileButton" required ></td>
+    </tr>
+
+    
+
+
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+        <td colspan=2 align=center><progress id="uploader" value="0" max="100">0%</progress></td>
+    </tr>
+    <tr>
+      <td colspan=2 align=center><input type="submit" value="Upload" onclick="go()" id=""></td>
+    </tr>
+  </table>
+  
+ 
+  <br>
+
+  
+
+</body>
+
+
+</html>

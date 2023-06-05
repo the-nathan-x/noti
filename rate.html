@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/rate.css">
+<link rel = "icon" href ="images/icon.png">
+
+<script>
+function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+      }
+    }
+      return "";
+      }
+
+
+
+      var cookie_info = getCookie("noti_info").split("*.*");
+      sessionStorage.setItem("user_name", cookie_info[2]);
+      sessionStorage.setItem("phonenumber", cookie_info[1]);
+
+
+if((sessionStorage.getItem('user_name')) == "undefined" )
+    {
+     sessionStorage.setItem('history', "rate.html");
+     location.replace("login.html");
+
+    };
+    
+</script>
+
+
+      <!--Firebase dependencies-->
+      <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase.js"></script>
+
+      <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyBx8xGhPib5GEwBdVCuHYYt71TmfMPVFAA",
+          authDomain: "noti-b1c85.firebaseapp.com",
+          databaseURL: "https://noti-b1c85.firebaseio.com",
+          projectId: "noti-b1c85",
+          storageBucket: "noti-b1c85.appspot.com",
+          messagingSenderId: "648522773009",
+          appId: "1:648522773009:web:cf9aacbb23f31eb515b7b0",
+          measurementId: "G-6EPVSL2TZL"
+    
+    
+        };
+     
+        firebase.initializeApp(config);
+      </script>
+  
+  
+  
+
+<script src="js/rate.js"></script>
+</head>
+<body onload="getGreeting()">
+
+<h3><span id="greeting"></span></h3>
+
+
+<div class="container">
+  <form>
+
+    <label for="rate">how is your whole noti experience?</label>
+    <select id="rate" name="rate">
+      <option value=5>Very Good</option>
+      <option value=4>Good</option>
+      <option value=3>Average</option>
+      <option value=2>Bad</option>
+      <option value=1>Very Bad</option>
+    </select>
+
+
+
+    <label for="recommend">how likely are you to recommend noti to your friends</label>
+    <select id="recommend" name="recommend">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+      <option value="not_sure">Not sure</option>
+    </select>
+
+    <label for="concerns">Comments:</label>
+    <textarea id="comment" name="comment" placeholder="Write something.." style="height:200px"></textarea>
+
+    <input type="button" value="Submit" onclick="submitClicked()">
+  </form>
+  
+</div>
+Any other concern? Email the team directly: nathaniel@noti.work
+</body>
+</html>
